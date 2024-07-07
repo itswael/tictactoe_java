@@ -29,4 +29,8 @@ public class GameController {
     public void displayBoard(Game game) {
         game.getBoard().displayBoard();
     }
+
+    public void executeNextMove(Game game) {
+        game.makeNextMove();
+    }
 }

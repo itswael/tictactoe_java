@@ -2,6 +2,7 @@ package Models;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Board {
     private int size;
@@ -32,5 +33,24 @@ public class Board {
             }
             System.out.println();
         }
+    }
+
+    public List<List<Cell>> getBoard() {
+        return cells;
+    }
+
+    public void setBoard(List<List<Cell>> cells) {
+        this.cells = cells;
+    }
+    public int getSize() {
+        return size;
+    }
+
+    public void applyMove(Move move) {
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+
+        this.getBoard().get(row).get(col).setCellState(CellState.FILLED);
+        this.getBoard().get(row).get(col).setPlayer(move.getPlayer());
     }
 }

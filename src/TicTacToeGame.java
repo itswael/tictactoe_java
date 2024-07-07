@@ -49,11 +49,15 @@ public class TicTacToeGame {
         GameController gameController = new GameController();
         Game game = gameController.createGame(dimension, players);
         while(gameController.getGameStatus(game) == GameStatus.IN_PROGRESS){
+            System.out.println("Current Board: ");
+            gameController.displayBoard(game);
+
+            gameController.executeNextMove(game);
 
         }
 
         if(gameController.getGameStatus(game) == GameStatus.DRAW){
-            System.out.println(" Its a Draw");
+            System.out.println("Its a Draw");
         }else{
             System.out.println("Winner is : " + gameController.getWinningPlayer(game));
         }

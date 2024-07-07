@@ -64,6 +64,24 @@ public class Game {
     public static Builder getBuilder(){
         return new Builder();
     }
+
+    public void makeNextMove() {
+        Player playerWhoseMoveIsThis = players.get(nextPlayerIndex);
+        System.out.println("It is "+ playerWhoseMoveIsThis.getName() +"'s Turn");
+        Move move = playerWhoseMoveIsThis.decideMove();
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+
+        if(board.getBoard().get(row).get(col).getCellState().equals(CellState.EMPTY)){
+            board.applyMove(move);
+            moves.add(move);
+            nextPlayerIndex += 1;
+            nextPlayerIndex %= players.size();
+        }else{
+
+        }
+    }
+
     public static class Builder{
         private int dimension;
         private List<Player> players;
