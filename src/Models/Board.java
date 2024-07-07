@@ -17,4 +17,20 @@ public class Board {
             }
         }
     }
+
+    public void displayBoard() {
+        for(int i=0; i<cells.size(); i++){
+            for(int j=0; j<cells.size(); j++){
+                if(cells.get(i).get(j).getCellState()
+                        .equals(CellState.EMPTY)){
+                    System.out.print("|  |");
+                }else{
+                    System.out.print("| " +
+                            cells.get(i).get(j)
+                                    .getPlayer().getSymbol() + " |");
+                }
+            }
+            System.out.println();
+        }
+    }
 }
