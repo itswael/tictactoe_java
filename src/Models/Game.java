@@ -1,6 +1,8 @@
 package Models;
 
 import Exceptions.InvalidGameDimensionException;
+import Strategy.GameWinningStrategy;
+import Strategy.OrderOneGameWinningStrategy;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +14,8 @@ public class Game {
     private GameStatus gameStatus;
     private int nextPlayerIndex;
     private Player winningPlayer;
+
+    private GameWinningStrategy gameWinningStrategy;
 
     public Player getWinningPlayer() {
         return winningPlayer;
@@ -61,6 +65,14 @@ public class Game {
         this.nextPlayerIndex = nextPlayerIndex;
     }
 
+    public GameWinningStrategy getGameWinningStrategy() {
+        return gameWinningStrategy;
+    }
+
+    public void setGameWinningStrategy(GameWinningStrategy gameWinningStrategy) {
+        this.gameWinningStrategy = gameWinningStrategy;
+    }
+
     public static Builder getBuilder(){
         return new Builder();
     }
@@ -75,6 +87,12 @@ public class Game {
         if(board.getBoard().get(row).get(col).getCellState().equals(CellState.EMPTY)){
             board.applyMove(move);
             moves.add(move);
+
+            if(gameWinningStrategy.checkWinner(board, move)){
+                gameStatus = GameStatus.ENDED;
+                winningPlayer = playerWhoseMoveIsThis;
+            }
+
             nextPlayerIndex += 1;
             nextPlayerIndex %= players.size();
         }else{
@@ -105,6 +123,8 @@ public class Game {
             game.setPlayers(players);
             game.setMoves(new LinkedList<>());
             game.setNextPlayerIndex(0);
+            game.setGameStatus((GameStatus.IN_PROGRESS));
+            game.setGameWinningStrategy(new OrderOneGameWinningStrategy(dimension));
             return game;
        }
 
