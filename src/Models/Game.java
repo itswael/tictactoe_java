@@ -80,13 +80,16 @@ public class Game {
     public void makeNextMove() {
         Player playerWhoseMoveIsThis = players.get(nextPlayerIndex);
         System.out.println("It is "+ playerWhoseMoveIsThis.getName() +"'s Turn");
-        Move move = playerWhoseMoveIsThis.decideMove();
+        Move move = playerWhoseMoveIsThis.decideMove(board);
+        System.out.println(playerWhoseMoveIsThis instanceof Bot);
         int row = move.getCell().getRow();
         int col = move.getCell().getCol();
+        //System.out.println(row + " " + col);
 
         if(board.getBoard().get(row).get(col).getCellState().equals(CellState.EMPTY)){
             board.applyMove(move);
             moves.add(move);
+            //System.out.println( " applied and added move" );
 
             if(gameWinningStrategy.checkWinner(board, move)){
                 gameStatus = GameStatus.ENDED;
@@ -135,5 +138,4 @@ public class Game {
             return true;
        }
     }
-
 }

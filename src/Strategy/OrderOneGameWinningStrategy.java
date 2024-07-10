@@ -32,28 +32,19 @@ public class OrderOneGameWinningStrategy implements GameWinningStrategy{
         rowSymbolCounts
                 .get(row)
                 .put(symbol,
-                        colSymbolCounts
+                        rowSymbolCounts
                                 .get(row)
                                 .get(symbol)+1);
 
-        if(!rowSymbolCounts.get(col).containsKey(symbol)){
-            rowSymbolCounts.get(col).put(symbol,0);
+        if(!colSymbolCounts.get(col).containsKey(symbol)){
+            colSymbolCounts.get(col).put(symbol,0);
         }
-        rowSymbolCounts
+        colSymbolCounts
                 .get(col)
                 .put(symbol,
                         colSymbolCounts
                                 .get(col)
                                 .get(symbol)+1);
-        if(row == col){
-            if(!topLeftDiagonalSymbolCounts.containsKey(symbol)){
-                topLeftDiagonalSymbolCounts.put(symbol,0);
-            }
-            topLeftDiagonalSymbolCounts
-                    .put(symbol,
-                            topLeftDiagonalSymbolCounts
-                                    .get(symbol)+1);
-        }
         if(row == col){
             if(!topLeftDiagonalSymbolCounts.containsKey(symbol)){
                 topLeftDiagonalSymbolCounts.put(symbol,0);
@@ -75,7 +66,7 @@ public class OrderOneGameWinningStrategy implements GameWinningStrategy{
         }
 
         if(rowSymbolCounts.get(row).get(symbol) == dimension
-                ||colSymbolCounts.get(row).get(symbol) == dimension){
+                ||colSymbolCounts.get(col).get(symbol) == dimension){
             return true;
         }
 
